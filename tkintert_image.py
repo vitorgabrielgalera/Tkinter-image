@@ -1,6 +1,6 @@
 #importo as bibliotecas
 from tkinter import *
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image, ImageOps
 import os
 
 #abro uma janela
@@ -14,8 +14,12 @@ imagens = []
 
 #percorre cada arquivo dentro de arquivos
 for arquivo in arquivos:
+
     #abre imagem
     img = Image.open("imagens/" + arquivo)
+
+    #redimenciono a imagem
+    img = ImageOps.contain(img, (200,200))
     #adiciona a imagem na lista
     imagens.append(ImageTk.PhotoImage(img))
 
@@ -34,7 +38,7 @@ imagem_Label.grid(row=0, column=0, columnspan=3)
 
 #defino as funções de avançae e voltar
 def prev_image():
-    
+
     #transformo as variáveis em globa
     global imagem_atual
     global imagem_Label
