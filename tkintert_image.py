@@ -5,6 +5,8 @@ import os
 
 #abro uma janela
 root = Tk()
+root.iconbitmap("zoo_ecosystem_exotic_wildlife_wild_animal_fauna_nature_capybara_icon_259316.ico")
+root.title("capivaras")
 
 #pega um arquivo e faz uma lista com o que tem tudo no arquivo
 arquivos = os.listdir("imagens")
@@ -15,13 +17,21 @@ imagens = []
 #percorre cada arquivo dentro de arquivos
 for arquivo in arquivos:
 
-    #abre imagem
-    img = Image.open("imagens/" + arquivo)
+#tenta abrir imagem
+    try:
+        img = Image.open("imagens/" + arquivo)
+        
+    #defino o que fazer caso der errado (passar para o próximo)
+    except:
+        continue
+    
+    #defino o que fazer caso der certo (colocar a imagem)
+    else:
+        #redimenciono a imagem
+        img = ImageOps.contain(img, (500,500))
 
-    #redimenciono a imagem
-    img = ImageOps.contain(img, (200,200))
-    #adiciona a imagem na lista
-    imagens.append(ImageTk.PhotoImage(img))
+        #adiciona a imagem na lista
+        imagens.append(ImageTk.PhotoImage(img))
 
 #exibe arquivos em um label
 #arquivos_label = Label(root, text=arquivos)
@@ -77,15 +87,15 @@ def next_image():
     imagem_Label.grid(row=0, column=0, columnspan=3)
 
 #crio e posiciono os botões
-prev = Button(root,text="prev",command=prev_image)
-prev.grid(row=1, column=0)
+prev = Button(root,text="prev",command=prev_image, fg="white", bg="black", font="Overthink")
+prev.grid(row=1, column=0, sticky=E + W)
 
 #o comando é um já pronto do Tk
-sair = Button(root,text="sair", command=root.quit)
-sair.grid(row=1, column=1)
+sair = Button(root,text="sair", command=root.quit, fg="white", bg="black", font="Overthink")
+sair.grid(row=1, column=1, sticky=E + W)
 
-next = Button(root,text="next",command=next_image)
-next.grid(row=1, column=2)
+next = Button(root,text="next",command=next_image, fg="white", bg="black", font="Overthink")
+next.grid(row=1, column=2, sticky=E + W)
 
 #rodo a janela
 root.mainloop()
